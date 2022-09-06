@@ -25,7 +25,7 @@ export default function ShoppingList() {
             <Form />
             <View style={styles.mainContainer}>
                 <FlatList data={items} renderItem={({ item }) => (
-                    <ShoppingItem el={item} />
+                    <ShoppingItem el={item} shopping={true} />
                 )} />
             </View>
         </View>

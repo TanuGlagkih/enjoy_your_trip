@@ -1,23 +1,31 @@
-import * as WebBrowser from 'expo-web-browser';
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import Colors from '../constants/Colors';
-import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
+import { View } from './Themed';
 import { TextInput, Button } from 'react-native'
+import { useDispatch } from 'react-redux';
+import { addItemToBuy } from '../services/shoppingListSlice';
 
-export default function Form({ addHandler }: any) {
-    const [text, setText] = useState('')
+export default function Form() {
+    const [text, setText] = useState('');
+    const dispatch = useDispatch();
 
     const onChange = (text: string) => {
         setText(text)
     }
 
+    const addHandler = (text: string): void => {
+        dispatch(addItemToBuy({
+            title: text,
+            id: Math.random().toString(35).substring(5),
+            isChecked: false
+        }))
+    }
+
     return (
         <View>
             <TextInput style={styles.input} onChangeText={onChange} placeholder='Введите покупку...' />
-            <Button onPress={() => addHandler(text)} title='Добавить' color={'silver'} />
+            <Button onPress={() => addHandler(text)} title='Добавить' color={'#4c4947'} />
         </View>
     );
 }

@@ -12,8 +12,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 
-import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import ItemListScreen from '../screens/ItemListScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -43,8 +43,18 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{
         title: 'EnjoYour trip',
-        // headerShown: false,
         headerStyle: {
+          backgroundColor: '#6ead3a',
+        },
+        headerTintColor: '#fff#efedef',
+        headerTitleStyle: {
+          fontFamily: 'qwitcher-bold',
+          fontWeight: 'bold',
+          fontSize: 35
+        },
+      }} />
+      <Stack.Screen name="ItemList" component={ItemListScreen} options={{
+        title: 'Список вещей', headerStyle: {
           backgroundColor: '#6ead3a',
         },
         headerTintColor: '#fff#efedef',
@@ -56,7 +66,6 @@ function RootNavigator() {
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} options={{
           title: 'Weather',
-          // headerShown: false,
           headerStyle: {
             backgroundColor: '#6ead3a',
           },
@@ -84,7 +93,7 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: '#efedef',
-        tabBarInactiveTintColor: '#6ead3a',
+        tabBarInactiveTintColor: '#222022',
         tabBarActiveBackgroundColor: '#4c4947',
         tabBarInactiveBackgroundColor: '#ceccce',
       }}
@@ -93,7 +102,8 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Список вещей',
+          title: 'Разделы',
+          headerTitleStyle: { fontWeight: 'bold', fontSize: 20 },
           tabBarIcon: ({ color }) =>
             <MaterialCommunityIcons name="bag-suitcase" size={24} color={color} />,
           headerRight: () => (
@@ -117,6 +127,7 @@ function BottomTabNavigator() {
         component={TabTwoScreen}
         options={{
           title: 'Список покупок',
+          headerTitleStyle: { fontWeight: 'bold', fontSize: 20 },
           tabBarIcon: ({ color }) => <TabBarIcon name="shopping-bag" color={color} />,
         }}
       />

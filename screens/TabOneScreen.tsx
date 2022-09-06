@@ -7,7 +7,7 @@ import { RootTabScreenProps } from '../types';
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
-      <SectionList />
+      <SectionList navigation={navigation} />
     </View>
   );
 }

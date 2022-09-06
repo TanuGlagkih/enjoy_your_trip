@@ -1,13 +1,11 @@
-import * as WebBrowser from 'expo-web-browser';
 import { useState } from 'react';
-import { FlatList, StyleSheet, TouchableHighlightComponent } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import ItemListScreen from '../screens/ItemListScreen';
 
-import Colors from '../constants/Colors';
 import SectionItem from './SectionItem';
-import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
+import { View } from './Themed';
 
-export default function SectionList() {
+export default function SectionList({ navigation }: any) {
     const [sections, setSections] = useState([
         { title: 'Одежда', key: '1' },
         { title: 'Обувь', key: '2' },
@@ -17,10 +15,15 @@ export default function SectionList() {
         { title: 'Дорога', key: '6' },
         { title: 'Прочее', key: '7' },
     ])
+
+    const openItemsList = (title: string) => {
+        navigation.navigate('ItemList', { title })
+    }
+
     return (
         <View style={styles.mainContainer}>
             <FlatList data={sections} renderItem={({ item }) => (
-                <SectionItem el={item} />
+                <SectionItem el={item} key={item.key} openItemsList={(title: string) => openItemsList(title)} />
             )} />
         </View>
     );

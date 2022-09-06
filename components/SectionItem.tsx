@@ -1,23 +1,23 @@
-import * as WebBrowser from 'expo-web-browser';
-import { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import Colors from '../constants/Colors';
-import { MonoText } from './StyledText';
-import { Text, View } from './Themed';
+import { Text } from './Themed';
 
-type TSectionItem = {
-    title: string;
-    key: string;
+type TProps = {
+    openItemsList: (title: string) => void,
+    el: {
+        title: string;
+        key: string;
+    }
 };
 
-export default function SectionItem(props: { el: TSectionItem }) {
+export default function SectionItem({ openItemsList, el }: TProps) {
+
     return (
-        <TouchableOpacity onPress={() => console.log('pressed')} >
+        <TouchableOpacity onPress={() => openItemsList(el.title)} >
             <Text style={styles.itemText} >
-                {props.el.title}
+                {el.title}
             </Text>
-        </ TouchableOpacity>
+        </TouchableOpacity>
     );
 }
 
@@ -26,11 +26,10 @@ const styles = StyleSheet.create({
         padding: 20,
         textAlign: 'justify',
         fontSize: 24,
-        borderBottomWidth: 2,
-        borderBottomColor: '#6ead3a',
-        //   backgroundColor: '#ceccce',
         marginTop: 10,
         opacity: 10,
         flex: 1,
+        borderBottomWidth: 2,
+        borderBottomColor: '#6ead3a',
     },
 });

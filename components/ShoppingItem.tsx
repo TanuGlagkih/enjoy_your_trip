@@ -4,21 +4,30 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Text, View } from './Themed';
 import { useDispatch } from 'react-redux';
 import { removeItemToBuy, setCheckedToBuy } from '../services/shoppingListSlice';
+import { removeItem, setChecked } from '../services/itemListSlice';
 
 type TSectionItem = {
     title: string;
-    id: string
+    id: string;
+    isChecked: boolean;
 };
 
-export default function ShoppingItem(props: { el: TSectionItem }) {
+export default function ShoppingItem(props: { el: TSectionItem, shopping: boolean, title?: string }) {
     const dispatch = useDispatch();
+    const title = props.title;
 
     const deleteEl = (id: string): void => {
-        dispatch(removeItemToBuy(id))
+        props.shopping ?
+            dispatch(removeItemToBuy(id))
+            :
+            dispatch(removeItem({ title, id }))
     }
 
     const isChecked = (id: string): void => {
-        dispatch(setCheckedToBuy(id))
+        props.shopping ?
+            dispatch(setCheckedToBuy(id))
+            :
+            dispatch(setChecked({ title, id }))
     }
 
     return (

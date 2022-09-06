@@ -6,8 +6,12 @@ export type TItem = {
     isChecked: boolean,
 };
 
+// export type TItemGroup = {
+//     key: 
+// };
+
 export type TItemListState = {
-    items: TItem[],
+    items: TItem[]//TItemGroup,
     loading: boolean,
     error: boolean,
 };
@@ -29,18 +33,29 @@ const itemListSlice = createSlice({
             state.items.push(action.payload)
         },
         removeItem(state, action) {
-            state.items = state.items.filter((item) => item.id !== action.payload)
+            for (let key in state.items) {
+                if (key == action.payload.title) {
+
+                    //@ts-ignore
+                    state.items[key] = state.items[key].filter((item) => item.id !== action.payload.id)
+                }
+            }
         },
         setChecked(state, action) {
-            state.items.map((item) => {
-                item.id === action.payload
-                    ?
-                    (
-                        item.isChecked = !item.isChecked
-                    ) : (
-                        item
-                    )
-            })
+            for (let key in state.items) {
+                if (key == action.payload.title) {
+                    //@ts-ignore
+                    state.items[key].map((item) => {
+                        item.id === action.payload.id
+                            ?
+                            (
+                                item.isChecked = !item.isChecked
+                            ) : (
+                                item
+                            )
+                    })
+                }
+            }
         }
     },
 })

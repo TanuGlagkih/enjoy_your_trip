@@ -12,27 +12,29 @@ import { setItems } from '../services/itemListSlice';
 
 export default function ItemList({ title }: any) {
     const { items } = useSelector((state: TRootState) => state.itemList)
-    var currentSection: Array<string>;
-
-    for (let key in items[0]) {
-        if (key == title) console.log()
-    }
-    //@ts-ignore
-    // console.log(items[0][Гаджеты])
-
     const dispatch = useDispatch();
+    let currentSection: Array<string> | undefined;
+
+    for (let key in items) {
+        //@ts-ignore
+        if (key == title) currentSection = items[title]
+    }
 
     useEffect(() => {
         dispatch(setItems(defaultItemsState))
     }, [])
 
+    if (!currentSection) return (<Text>Loading...</Text>)
+
     return (
         <View style={styles.mainContainer}>
             {/* <Form /> */}
             <View style={styles.mainContainer}>
-                {/* <FlatList data={items} renderItem={({ item }) => (
-                   <Text>{ }</Text> 
-                )} /> */}
+                <FlatList data={currentSection} renderItem={({ item }) => (
+                    // <Text>{item}</Text>
+                    //@ts-ignore
+                    <ShoppingItem el={item} shopping={false} title={title} />
+                )} />
 
             </View>
         </View>

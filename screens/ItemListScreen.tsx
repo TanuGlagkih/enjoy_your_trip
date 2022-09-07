@@ -20,10 +20,10 @@ export default function ItemListScreen({ route }: RootStackScreenProps<'ItemList
 
     return (
         <View style={styles.container}>
-            <View style={styles.box}>
+            {/* <View style={styles.box}>
                 <Text style={styles.head}>{title}</Text>
                 <Entypo name="pencil" size={24} color='#4c4947' />
-            </View>
+            </View> */}
             <ItemList title={title} />
         </View>
     );
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     box: {
-        //flex: 1,
         flexDirection: 'row',
         borderBottomColor: '#ceccce',
         borderBottomWidth: 2,

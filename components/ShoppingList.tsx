@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Form from './Form';
-import ShoppingItem from './ShoppingItem';
+import Item from './Item';
 import { View } from './Themed';
 import { TRootState } from '../services/store'
 import { useDispatch } from 'react-redux';
@@ -25,7 +25,7 @@ export default function ShoppingList() {
             <Form />
             <View style={styles.mainContainer}>
                 <FlatList data={items} renderItem={({ item }) => (
-                    <ShoppingItem el={item} shopping={true} />
+                    <Item el={item} shopping={true} />
                 )} />
             </View>
         </View>

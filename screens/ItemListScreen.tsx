@@ -3,28 +3,26 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import ItemList from '../components/ItemList';
 
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
 import { RootStackScreenProps } from '../types';
 import { defaultItemsState } from '../assets/data';
 import { setItems } from '../services/itemListSlice';
-import { Entypo } from '@expo/vector-icons';
 
 export default function ItemListScreen({ route }: RootStackScreenProps<'ItemList'>) {
-    const title = route.params.title;
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    // //  const storageData = getItemData();
 
-    useEffect(() => {
-        dispatch(setItems(defaultItemsState[0]))
-        console.log(defaultItemsState)
-    }, [])
+    // useEffect(() => {
+    //     // itemData ?
+    //     //  dispatch(setItems(itemData))
+    //     //    :
+    //     dispatch(setItems(defaultItemsState[0]))
+    //     console.log(defaultItemsState)
+    // }, [])
 
     return (
         <View style={styles.container}>
-            {/* <View style={styles.box}>
-                <Text style={styles.head}>{title}</Text>
-                <Entypo name="pencil" size={24} color='#4c4947' />
-            </View> */}
-            <ItemList title={title} />
+            <ItemList title={route.params.title} />
         </View>
     );
 }

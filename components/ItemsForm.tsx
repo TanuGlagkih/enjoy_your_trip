@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { View } from './Themed';
@@ -11,6 +11,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function ItemsForm({ setEdit, title }: any) {
     const [text, setText] = useState('');
+    const ref = useRef(null);
     const dispatch = useDispatch();
 
     const onChange = (text: string) => {
@@ -18,6 +19,10 @@ export default function ItemsForm({ setEdit, title }: any) {
     }
 
     const addHandler = (text: string): void => {
+        //@ts-ignore
+        ref.current.value = null;
+        setText('');
+
         const item = {
             title: text,
             id: Math.random().toString(35).substring(5),
@@ -32,13 +37,30 @@ export default function ItemsForm({ setEdit, title }: any) {
 
     return (
         <View style={styles.box}>
-            <TextInput style={styles.input} onChangeText={onChange} placeholder='Добавить вещь...' />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChange}
+                placeholder='Добавить вещь...'
+                ref={ref}
+            />
             <View style={styles.iconBox}>
-                <TouchableOpacity onPress={() => addHandler(text)}>
-                    <MaterialIcons name="library-add-check" size={24} color="#4c4947" style={{ marginRight: 30 }} />
+                <TouchableOpacity
+                    onPress={() => addHandler(text)}
+                    disabled={!text ? true : false}>
+                    <MaterialIcons
+                        name="library-add-check"
+                        size={24}
+                        color="#4c4947"
+                        style={{ marginRight: 30 }}
+                    />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setEdit(false)}>
-                    <AntDesign name="closecircle" size={24} color="#4c4947" style={{ marginRight: 20 }} />
+                    <AntDesign
+                        name="closecircle"
+                        size={24}
+                        color="#4c4947"
+                        style={{ marginRight: 20 }}
+                    />
                 </TouchableOpacity>
             </View>
         </View>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { defaultItemsState } from '../assets/data'
 
 export type TItem = {
     title: string,
@@ -13,10 +14,13 @@ export type TItemListState = {
 };
 
 const initialListState: TItemListState = {
-    items: [],
+    //@ts-ignore
+    items: defaultItemsState[0],
     loading: false,
     error: false,
 };
+
+console.log(defaultItemsState[0])
 
 const itemListSlice = createSlice({
     name: 'itemList',

@@ -4,12 +4,13 @@ import { useSelector } from 'react-redux';
 
 import Item from './Item';
 import { View, Text } from './Themed';
-import { TRootState } from '../services/store'
+import { TRootState } from '../services/configureStore'
 import { useDispatch } from 'react-redux';
 import { defaultItemsState } from '../assets/data';
 import { setItems } from '../services/itemListSlice';
 import { Entypo } from '@expo/vector-icons';
 import ItemsForm from './ItemsForm';
+import { Preloader } from '../assets/preloader';
 
 export default function ItemList({ title }: any) {
     const { items } = useSelector((state: TRootState) => state.itemList)
@@ -24,16 +25,16 @@ export default function ItemList({ title }: any) {
         if (key == title) currentSection = items[title]
     }
 
-    useEffect(() => {
-        dispatch(setItems(defaultItemsState))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(setItems(defaultItemsState))
+    // }, [])
 
     const editList = () => {
         setEdit(true);
         forceUpdate();
     }
 
-    if (!currentSection) return (<Text>Loading...</Text>)
+    if (!currentSection) return <Preloader />
 
     return (
         <View style={styles.mainContainer}>

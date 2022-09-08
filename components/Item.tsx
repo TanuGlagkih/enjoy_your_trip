@@ -39,6 +39,7 @@ export default function Item(props: { el: TSectionItem, shopping: boolean, title
                 iconStyle={{ borderColor: "#6ead3a" }}
                 innerIconStyle={{ borderWidth: 2 }}
                 onPress={(checked) => isChecked(props.el.id)}
+                isChecked={props.el.isChecked}
             />
             <Text style={styles.itemText} >
                 {props.el.title}

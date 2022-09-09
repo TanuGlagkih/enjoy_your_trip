@@ -5,8 +5,10 @@ import { View } from './Themed';
 import { TextInput, Button } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { addItemToBuy } from '../services/shoppingListSlice';
+import { getCity } from '../services/requests';
+import { AntDesign } from '@expo/vector-icons';
 
-export default function ShoppingForm() {
+export default function Form(props: { weather: boolean }) {
     const [text, setText] = useState('');
     const ref = useRef(null);
     const dispatch = useDispatch();
@@ -29,12 +31,22 @@ export default function ShoppingForm() {
 
     return (
         <View>
-            <TextInput
-                style={styles.input}
-                onChangeText={onChange}
-                placeholder='Введите покупку...'
-                ref={ref}
-            />
+            <View style={styles.search}>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={onChange}
+                    placeholder={(!props.weather) ? 'Введите покупку...' : 'Введите город...'}
+                    ref={ref}
+                />
+                {props.weather && (
+                    <AntDesign
+                        name="search1"
+                        size={24}
+                        color="black"
+                        onPress={() => getCity(text)}
+                    />
+                )}
+            </View>
             <Button
                 onPress={() => addHandler(text)}
                 title='Добавить'
@@ -46,6 +58,11 @@ export default function ShoppingForm() {
 }
 
 const styles = StyleSheet.create({
+    search: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
     input: {
         borderBottomWidth: 1,
         borderColor: '#000',

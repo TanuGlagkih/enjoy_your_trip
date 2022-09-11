@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
-
-import { View } from './Themed';
-import { TextInput, Button } from 'react-native'
+import { StyleSheet, TextInput, Button, View } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { addItemToBuy } from '../services/shoppingListSlice';
 
@@ -17,7 +14,7 @@ export default function Form() {
 
     const addHandler = (text: string): void => {
         //@ts-ignore
-        ref.current.value = null;
+        if (ref.current !== null) ref.current.value = null;
         setText('');
 
         dispatch(addItemToBuy({

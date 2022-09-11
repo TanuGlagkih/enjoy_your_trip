@@ -1,3 +1,13 @@
+export const sectionsNames = [
+    { title: 'Одежда', key: '1' },
+    { title: 'Обувь', key: '2' },
+    { title: 'Гигиена', key: '3' },
+    { title: 'Документы/деньги', key: '4' },
+    { title: 'Гаджеты', key: '5' },
+    { title: 'Дорога', key: '6' },
+    { title: 'Прочее', key: '7' },
+]
+
 export const defaultShoppingState = [
     { title: 'Бананы', id: '11', isChecked: false },
     { title: 'Хлеб', id: '22', isChecked: false },

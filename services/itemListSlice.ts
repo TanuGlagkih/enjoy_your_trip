@@ -7,14 +7,17 @@ export type TItem = {
     isChecked: boolean,
 };
 
+export type TItems = {
+    [name: string]: Array<TItem>
+}
+
 export type TItemListState = {
-    items: TItem[],
+    items: TItems,
     loading: boolean,
     error: boolean,
 };
 
 const initialListState: TItemListState = {
-    //@ts-ignore
     items: defaultItemsState[0],
     loading: false,
     error: false,
@@ -32,8 +35,6 @@ const itemListSlice = createSlice({
         addItem(state, action) {
             for (let key in state.items) {
                 if (key == action.payload.section) {
-
-                    //@ts-ignore
                     state.items[key].push(action.payload.item)
                 }
             }
@@ -41,8 +42,6 @@ const itemListSlice = createSlice({
         removeItem(state, action) {
             for (let key in state.items) {
                 if (key == action.payload.title) {
-
-                    //@ts-ignore
                     state.items[key] = state.items[key].filter((item) => item.id !== action.payload.id)
                 }
             }
@@ -50,7 +49,6 @@ const itemListSlice = createSlice({
         setChecked(state, action) {
             for (let key in state.items) {
                 if (key == action.payload.title) {
-                    //@ts-ignore
                     state.items[key].map((item) => {
                         item.id === action.payload.id
                             ?

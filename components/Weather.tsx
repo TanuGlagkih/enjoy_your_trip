@@ -1,30 +1,27 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, TextInput, Button, FlatList } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, TouchableOpacity, TextInput, Text, View, FlatList } from 'react-native';
 import { checkResponse } from '../services/checkResponce';
 import { AntDesign } from '@expo/vector-icons';
-import { Text, View } from './Themed';
 import Forecast from './Forecast';
-
+import { TCity, TCityResponce, TWeatherResponce } from '../types';
 
 export default function Weather() {
     const [text, setText] = useState('');
     const [weatherData, setWeatherData] = useState({});
-    const [cityData, setCityData] = useState({});
+    const [cityData, setCityData] = useState<TCity[] | undefined>();
     const [forecast, setForecast] = useState(false);
 
     const onChange = (text: string) => {
         setText(text)
-    }
+    };
 
     const getCity = (customInput: string) => {
         fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${customInput}&language=ru&count=1`)
-            .then(checkResponse)
+            .then(checkResponse<TCityResponce>)
             .then((res) => {
                 if (res) {
-                    //@ts-ignore
                     const data = res.results;
                     setCityData(data);
-                    console.log(data);
                 } else {
                     throw new Error
                 }
@@ -33,12 +30,11 @@ export default function Weather() {
 
     const getWeather = async (lat: number, lon: number) => {
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FMoscow`)
-            .then(checkResponse)
+            .then(checkResponse<TWeatherResponce>)
             .then((res) => {
                 if (res) {
                     const data = res;
                     setWeatherData(data);
-                    console.log(data)
                 } else {
                     throw new Error
                 }
@@ -64,7 +60,6 @@ export default function Weather() {
             {
                 !forecast ? (
                     <FlatList
-                        //@ts-ignore
                         data={cityData} renderItem={({ item }) => (
                             <TouchableOpacity
                                 onPress={() => {

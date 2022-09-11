@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Text, View } from 'react-native';
 import { Preloader } from '../assets/preloader';
-import { Text, View } from './Themed';
 
 export default function Forecast({ weatherData }: any) {
     const time = weatherData.daily?.time.map((x: string) => x.slice(5).replace('-', '/'))

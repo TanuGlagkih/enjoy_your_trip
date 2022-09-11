@@ -1,6 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import { Text } from './Themed';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 type TProps = {
     openItemsList: (title: string) => void,

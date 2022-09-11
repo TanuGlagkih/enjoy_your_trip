@@ -14,7 +14,6 @@ export type TItemListState = {
 };
 
 const initialListState: TItemListState = {
-    //@ts-ignore
     items: defaultShoppingState,
     loading: false,
     error: false,

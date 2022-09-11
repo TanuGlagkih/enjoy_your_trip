@@ -25,10 +25,6 @@ export default function ItemList({ title }: any) {
         if (key == title) currentSection = items[title]
     }
 
-    // useEffect(() => {
-    //     dispatch(setItems(defaultItemsState))
-    // }, [])
-
     const editList = () => {
         setEdit(true);
         forceUpdate();
@@ -75,5 +71,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         textDecorationColor: '#4c4947'
-    }
+    },
+    itemText: {
+        padding: 10,
+        textAlign: 'left',
+        fontSize: 20,
+        marginTop: 10,
+        width: '60%',
+    },
 });

@@ -65,7 +65,7 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} options={{
-          title: 'Weather',
+          title: 'Погода',
           headerStyle: {
             backgroundColor: '#6ead3a',
           },

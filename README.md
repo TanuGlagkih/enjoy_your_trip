@@ -1,5 +1,6 @@
 <!-- # Enjoy Your trip
 
+
 ## Web-application includes:
 <ul>
 <li>Registration/login/password recovery using tokens (React Router v5) <br>
@@ -18,7 +19,9 @@ React Developer Burger UI Components
 1. Clone this repo
 2. Run `npm install && npm start` 
 <br><br> -->
-# Enjoy Your trip - список вещей в дорогу
+# <img width="38" alt="cactus75" src="https://user-images.githubusercontent.com/96661925/189523906-58296fd6-c4a1-4f09-bd0d-ed2b72f9697c.png"> Enjoy Your trip - список вещей в дорогу
+
+
 <ul>
 <li>Мобильное приложение, созданное с помощью Expo CLI<br>
 <li>Позволяет создать список вещей в путешествие, отредактировать его и ничего не забыть. <br>
@@ -38,9 +41,12 @@ React Developer Burger UI Components
 Создание и редактирование списка покупок<br>
  <img width="189" alt="4" src="https://user-images.githubusercontent.com/96661925/189345768-b13fb8f8-2423-4101-948d-ae8b96fd3efc.png">
 
-Запрос прогноза погоды на неделю для выбранного города (Open-Meteo API) - в разработке.
+Запрос прогноза погоды на неделю для выбранного города (Open-Meteo API)
 <br>
- 
+<img width="190" alt="7" src="https://user-images.githubusercontent.com/96661925/189523869-33f64f7c-8b59-4c93-b3bc-e16d4b986c54.png">
+ <img width="192" alt="8" src="https://user-images.githubusercontent.com/96661925/189523866-7f0496a2-0430-4583-8c61-2dea66a31f7e.png">
+
+
 
 ## Технологический стек: 
 Typescript, React Native, Redux Toolkit

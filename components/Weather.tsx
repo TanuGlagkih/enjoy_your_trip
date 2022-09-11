@@ -1,96 +1,112 @@
-import * as WebBrowser from 'expo-web-browser';
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
-
-import Form from './Form';
-import { MonoText } from './StyledText';
+import { StyleSheet, TouchableOpacity, TextInput, Button, FlatList } from 'react-native';
+import { checkResponse } from '../services/checkResponce';
+import { AntDesign } from '@expo/vector-icons';
 import { Text, View } from './Themed';
+import Forecast from './Forecast';
+
 
 export default function Weather() {
-    const [weatherData, setWeatherData] = useState(0)
+    const [text, setText] = useState('');
+    const [weatherData, setWeatherData] = useState({});
+    const [cityData, setCityData] = useState({});
+    const [forecast, setForecast] = useState(false);
 
-    useEffect(() => {
-        // getWeather()
-    }, [])
+    const onChange = (text: string) => {
+        setText(text)
+    }
 
+    const getCity = (customInput: string) => {
+        fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${customInput}&language=ru&count=1`)
+            .then(checkResponse)
+            .then((res) => {
+                if (res) {
+                    //@ts-ignore
+                    const data = res.results;
+                    setCityData(data);
+                    console.log(data);
+                } else {
+                    throw new Error
+                }
+            }).catch(err => console.log(err))
+    }
 
-    //curl -H  'https://api.gismeteo.net/v2/weather/forecast/aggregate/4368/?lang=en&days=3'
-
-    //     export const baseUrl: string = 'https://norma.nomoreparties.space/api';
-
-    //     
-    // }
-    //         fetch(`${baseUrl}/ingredients`, {
-    //             method: 'post',
-    //         headers: {
-    //             "Content-Type": "application/json;charset=utf-8",
-    //         },
-    //         body: JSON.stringify({
-    //             email: email,
-    //         password: password,
-    //         }),
-    //     })
-    //     .then((res) => checkResponse<TDataResponce>(res))
-    //     .then((res) => {
-    //         if (res && res.success) {
-    //             const data = res.data;
-    //             dispatch(ingredientRequestSuccess(data))
-    //         } else {
-    //                 dispatch(ingredientRequestFailed())
-    //             }
-    //     }).catch(err => dispatch(ingredientRequestFailed()))
-
+    const getWeather = async (lat: number, lon: number) => {
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FMoscow`)
+            .then(checkResponse)
+            .then((res) => {
+                if (res) {
+                    const data = res;
+                    setWeatherData(data);
+                    console.log(data)
+                } else {
+                    throw new Error
+                }
+            }).catch(err => console.log(err))
+    }
 
     return (
-        <View>
-            <View style={styles.getStartedContainer}>
-                <Form weather />
-
-                <View
-                    style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-                    darkColor="rgba(255,255,255,0.05)"
-                    lightColor="rgba(0,0,0,0.05)">
-                    <MonoText>{ }</MonoText>
-                </View>
-
-                <Text
-                    style={styles.getStartedText}
-                    lightColor="rgba(0,0,0,0.8)"
-                    darkColor="rgba(255,255,255,0.8)">
-                    I am wondering of start coding on React Native
-                </Text>
+        <View style={styles.box}>
+            <View style={styles.search}>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={onChange}
+                    placeholder='Введите город...'
+                />
+                <TouchableOpacity onPress={() => { getCity(text); setForecast(false) }} >
+                    <AntDesign
+                        name="search1"
+                        size={30}
+                        color="black"
+                    />
+                </TouchableOpacity>
             </View>
-
-        </View>
+            {
+                !forecast ? (
+                    <FlatList
+                        //@ts-ignore
+                        data={cityData} renderItem={({ item }) => (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    getWeather(item.latitude, item.longitude);
+                                    setForecast(true)
+                                }}
+                            >
+                                <Text style={styles.itemText}>{item.country}, {item.name}</Text>
+                            </TouchableOpacity>
+                        )} />
+                ) : (
+                    <Forecast weatherData={weatherData} />
+                )
+            }
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
-    getStartedContainer: {
+    box: {
+        marginHorizontal: '8%',
+    },
+    search: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        marginHorizontal: 50,
+        marginTop: '15%',
     },
-    homeScreenFilename: {
-        marginVertical: 7,
+    input: {
+        borderBottomWidth: 1,
+        borderColor: '#000',
+        padding: 10,
+        marginVertical: 20,
+        width: '100%',
     },
-    codeHighlightContainer: {
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        lineHeight: 24,
-        textAlign: 'center',
-    },
-    helpContainer: {
-        marginTop: 15,
-        marginHorizontal: 20,
-        alignItems: 'center',
-    },
-    helpLink: {
-        paddingVertical: 15,
-    },
-    helpLinkText: {
-        textAlign: 'center',
+    itemText: {
+        padding: 10,
+        textAlign: 'left',
+        fontSize: 20,
+        marginTop: 10,
+        borderBottomWidth: 1,
+        borderColor: '#ceccce',
     },
 });

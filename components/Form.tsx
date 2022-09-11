@@ -5,10 +5,8 @@ import { View } from './Themed';
 import { TextInput, Button } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { addItemToBuy } from '../services/shoppingListSlice';
-import { getCity } from '../services/requests';
-import { AntDesign } from '@expo/vector-icons';
 
-export default function Form(props: { weather: boolean }) {
+export default function Form() {
     const [text, setText] = useState('');
     const ref = useRef(null);
     const dispatch = useDispatch();
@@ -35,17 +33,10 @@ export default function Form(props: { weather: boolean }) {
                 <TextInput
                     style={styles.input}
                     onChangeText={onChange}
-                    placeholder={(!props.weather) ? 'Введите покупку...' : 'Введите город...'}
+                    placeholder='Введите покупку...'
                     ref={ref}
                 />
-                {props.weather && (
-                    <AntDesign
-                        name="search1"
-                        size={24}
-                        color="black"
-                        onPress={() => getCity(text)}
-                    />
-                )}
+
             </View>
             <Button
                 onPress={() => addHandler(text)}

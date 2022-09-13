@@ -1,6 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
-
-import { Text } from './Themed';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
 type TProps = {
     openItemsList: (title: string) => void,
@@ -25,7 +23,7 @@ const styles = StyleSheet.create({
     itemText: {
         padding: 20,
         textAlign: 'justify',
-        fontSize: 24,
+        fontSize: 20,
         marginTop: 10,
         opacity: 10,
         flex: 1,

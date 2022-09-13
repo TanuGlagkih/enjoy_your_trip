@@ -1,22 +1,28 @@
-import { useEffect, useReducer, useState } from 'react';
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { useReducer, useState } from 'react';
+import { FlatList, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Item from './Item';
-import { View, Text } from './Themed';
 import { TRootState } from '../services/configureStore'
-import { useDispatch } from 'react-redux';
-import { defaultItemsState } from '../assets/data';
-import { setItems } from '../services/itemListSlice';
 import { Entypo } from '@expo/vector-icons';
 import ItemsForm from './ItemsForm';
 import { Preloader } from '../assets/preloader';
 
-export default function ItemList({ title }: any) {
-    const { items } = useSelector((state: TRootState) => state.itemList)
-    const dispatch = useDispatch();
-    let currentSection: Array<string> | undefined;
-    const [wantEdit, setEdit] = useState(false)
+type TItemList = {
+    title: string;
+};
+
+export type TSectionItem = {
+    title: string;
+    id: string;
+    isChecked: boolean;
+};
+
+export default function ItemList({ title }: TItemList) {
+    const { items } = useSelector((state: TRootState) => state.itemList);
+    const [wantEdit, setEdit] = useState(false);
+
+    let currentSection: Array<TSectionItem> | undefined;
 
     const forceUpdate = useReducer(() => ({}), {})[1] as () => void
 
@@ -48,7 +54,6 @@ export default function ItemList({ title }: any) {
                 </View>
             }
             <FlatList data={currentSection} renderItem={({ item }) => (
-                //@ts-ignore
                 <Item el={item} shopping={false} title={title} />
             )} />
         </View>
@@ -60,7 +65,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     box: {
-        //flex: 1,
         flexDirection: 'row',
         borderBottomColor: '#ceccce',
         borderBottomWidth: 2,

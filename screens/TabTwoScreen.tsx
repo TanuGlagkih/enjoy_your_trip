@@ -1,7 +1,5 @@
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
 import List from '../components/ShoppingList';
-import { View } from '../components/Themed';
 
 export default function TabTwoScreen() {
   return (

@@ -1,20 +1,24 @@
-import { useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import ItemListScreen from '../screens/ItemListScreen';
-
+import { FlatList, StyleSheet, View } from 'react-native';
 import SectionItem from './SectionItem';
-import { View } from './Themed';
+import { NavigationProp } from "@react-navigation/native";
+import { sectionsNames } from '../assets/data';
+import { useState, useEffect } from 'react';
 
-export default function SectionList({ navigation }: any) {
-    const [sections, setSections] = useState([
-        { title: 'Одежда', key: '1' },
-        { title: 'Обувь', key: '2' },
-        { title: 'Гигиена', key: '3' },
-        { title: 'Документы/деньги', key: '4' },
-        { title: 'Гаджеты', key: '5' },
-        { title: 'Дорога', key: '6' },
-        { title: 'Прочее', key: '7' },
-    ])
+interface RouterProps {
+    navigation: NavigationProp<any, any>;
+}
+
+type TSections = {
+    title: string;
+    key: string;
+};
+
+export default function SectionList({ navigation }: RouterProps) {
+    const [sections, setSections] = useState<TSections[]>()
+
+    useEffect(() => {
+        setSections(sectionsNames)
+    }, []);
 
     const openItemsList = (title: string) => {
         navigation.navigate('ItemList', { title })
@@ -33,6 +37,5 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         justifyContent: 'center',
-        //   backgroundColor: '#efedef',
     },
 });

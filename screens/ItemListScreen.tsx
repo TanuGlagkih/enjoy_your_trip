@@ -1,24 +1,9 @@
-import { StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import ItemList from '../components/ItemList';
 
-import { View } from '../components/Themed';
 import { RootStackScreenProps } from '../types';
-import { defaultItemsState } from '../assets/data';
-import { setItems } from '../services/itemListSlice';
 
 export default function ItemListScreen({ route }: RootStackScreenProps<'ItemList'>) {
-    // const dispatch = useDispatch();
-    // //  const storageData = getItemData();
-
-    // useEffect(() => {
-    //     // itemData ?
-    //     //  dispatch(setItems(itemData))
-    //     //    :
-    //     dispatch(setItems(defaultItemsState[0]))
-    //     console.log(defaultItemsState)
-    // }, [])
 
     return (
         <View style={styles.container}>

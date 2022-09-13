@@ -5,26 +5,26 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Preloader } from './assets/preloader';
 
 import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { persistor, store } from './services/configureStore';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
     return <Preloader />;
   } else {
     return (
-      <SafeAreaProvider>
-        <ReduxProvider store={store}>
+      <ReduxProvider store={store}>
+        <SafeAreaProvider>
+
           <PersistGate loading={null} persistor={persistor}>
-            <Navigation colorScheme={colorScheme} />
+            <Navigation />
             <StatusBar />
           </PersistGate>
-        </ReduxProvider>
-      </SafeAreaProvider>
+        </SafeAreaProvider>
+      </ReduxProvider>
+
     );
   }
 }

@@ -1,15 +1,18 @@
 import { useRef, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { View } from './Themed';
 import { TextInput } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { addItem } from '../services/itemListSlice';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
+type TItemsForm = {
+    setEdit: (edit: boolean) => void,
+    title: string,
+};
 
-export default function ItemsForm({ setEdit, title }: any) {
+export default function ItemsForm({ setEdit, title }: TItemsForm) {
     const [text, setText] = useState('');
     const ref = useRef(null);
     const dispatch = useDispatch();
@@ -20,7 +23,7 @@ export default function ItemsForm({ setEdit, title }: any) {
 
     const addHandler = (text: string): void => {
         //@ts-ignore
-        ref.current.value = null;
+        if (ref.current !== null) ref.current.value = null;
         setText('');
 
         const item = {

@@ -1,16 +1,10 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { MaterialIcons } from '@expo/vector-icons';
-import { Text, View } from './Themed';
 import { useDispatch } from 'react-redux';
 import { removeItemToBuy, setCheckedToBuy } from '../services/shoppingListSlice';
 import { removeItem, setChecked } from '../services/itemListSlice';
-
-type TSectionItem = {
-    title: string;
-    id: string;
-    isChecked: boolean;
-};
+import { TSectionItem } from './ItemList';
 
 export default function Item(props: { el: TSectionItem, shopping: boolean, title?: string }) {
     const dispatch = useDispatch();
@@ -60,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'baseline',
+        alignItems: 'center',
         marginLeft: 25,
         borderRadius: 2,
     },

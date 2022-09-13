@@ -12,7 +12,8 @@ export default function Weather() {
     const [forecast, setForecast] = useState(false);
 
     const onChange = (text: string) => {
-        setText(text)
+        const newText = text.trim();
+        setText(newText)
     };
 
     const getCity = (customInput: string) => {
@@ -35,6 +36,7 @@ export default function Weather() {
                 if (res) {
                     const data = res;
                     setWeatherData(data);
+                    console.log(data)
                 } else {
                     throw new Error
                 }
@@ -57,48 +59,56 @@ export default function Weather() {
                     />
                 </TouchableOpacity>
             </View>
-            {
-                !forecast ? (
-                    <FlatList
-                        data={cityData} renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    getWeather(item.latitude, item.longitude);
-                                    setForecast(true)
-                                }}
-                            >
-                                <Text style={styles.itemText}>{item.country}, {item.name}</Text>
-                            </TouchableOpacity>
-                        )} />
-                ) : (
-                    <Forecast weatherData={weatherData} />
-                )
-            }
+            <View style={styles.innerBox}>
+                {
+                    !forecast ? (
+                        <FlatList
+                            data={cityData} renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        getWeather(item.latitude, item.longitude);
+                                        setForecast(true)
+                                    }}
+                                >
+                                    <Text style={styles.itemText}>{item.country}, {item.name}</Text>
+                                </TouchableOpacity>
+                            )} />
+                    ) : (
+                        <Forecast weatherData={weatherData} />
+                    )
+                }
+            </View>
         </View >
     );
 }
 
 const styles = StyleSheet.create({
     box: {
-        marginHorizontal: '8%',
+        position: 'relative',
+        alignItems: 'center',
     },
     search: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: '15%',
+        alignItems: 'baseline',
+        marginTop: '5%',
+    },
+    innerBox: {
+        position: 'absolute',
+        marginTop: '35%',
     },
     input: {
         borderBottomWidth: 1,
         borderColor: '#000',
         padding: 10,
-        marginVertical: 20,
-        width: '100%',
+        marginVertical: '10%',
+        width: '70%',
     },
     itemText: {
         padding: 10,
         textAlign: 'left',
+        flex: 1,
         fontSize: 20,
         marginTop: 10,
         borderBottomWidth: 1,

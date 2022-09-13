@@ -15,14 +15,16 @@ export default function App() {
     return <Preloader />;
   } else {
     return (
-      <SafeAreaProvider>
-        <ReduxProvider store={store}>
+      <ReduxProvider store={store}>
+        <SafeAreaProvider>
+
           <PersistGate loading={null} persistor={persistor}>
             <Navigation />
             <StatusBar />
           </PersistGate>
-        </ReduxProvider>
-      </SafeAreaProvider>
+        </SafeAreaProvider>
+      </ReduxProvider>
+
     );
   }
 }

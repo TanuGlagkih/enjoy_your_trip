@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     itemText: {
         padding: 20,
         textAlign: 'justify',
-        fontSize: 24,
+        fontSize: 20,
         marginTop: 10,
         opacity: 10,
         flex: 1,

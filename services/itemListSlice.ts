@@ -23,15 +23,13 @@ const initialListState: TItemListState = {
     error: false,
 };
 
-console.log(defaultItemsState[0])
-
 const itemListSlice = createSlice({
     name: 'itemList',
     initialState: initialListState,
     reducers: {
-        setItems(state, action) {
-            state.items = action.payload
-        },
+        //   setItems(state, action) {
+        //     state.items = action.payload
+        //  },
         addItem(state, action) {
             for (let key in state.items) {
                 if (key == action.payload.section) {
@@ -65,4 +63,4 @@ const itemListSlice = createSlice({
 })
 
 export default itemListSlice.reducer;
-export const { setItems, addItem, removeItem, setChecked } = itemListSlice.actions;
+export const { /*setItems,*/ addItem, removeItem, setChecked } = itemListSlice.actions;

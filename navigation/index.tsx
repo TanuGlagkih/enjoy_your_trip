@@ -36,7 +36,6 @@ function RootNavigator() {
         headerTintColor: '#000000',
         headerTitleStyle: {
           fontFamily: 'qwitcher-bold',
-          fontWeight: 'bold',
           fontSize: 40,
         },
       }} />
@@ -96,7 +95,7 @@ function BottomTabNavigator() {
               })}>
               <MaterialCommunityIcons
                 name="weather-partly-cloudy"
-                size={35}
+                size={30}
                 color="black"
                 style={{ marginRight: 15 }}
               />
